@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+
+{% block title %}Issues{% endblock title %}
+
+{% block content %}
+<h1>Issues</h1>
+<div class="container text-center">
+  <div class="row align-items-start">
+    <div class="col">
+        {% for issue in to_do_list %}
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ issue.summary }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.subtitle }}</h6>
+                <p class="card-text">{{ post.description|truncatechars:128 }}</p>
+                <a href="{% url "detail" issue.id %}" class="card-link">Continue reading...</a>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="col">
+        {% for issue in in_progress_list %}
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ issue.summary }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.subtitle }}</h6>
+                <p class="card-text">{{ post.description|truncatechars:128 }}</p>
+                <a href="{% url "detail" issue.id %}" class="card-link">Continue reading...</a>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="col">
+        {% for issue in done_list %}
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ issue.summary }}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.subtitle }}</h6>
+                <p class="card-text">{{ post.description|truncatechars:128 }}</p>
+                <a href="{% url "detail" issue.id %}" class="card-link">Continue reading...</a>
+              </div>
+            </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
