@@ -18,9 +18,9 @@ class IssueListView(LoginRequiredMixin, ListView):
     template_name = "issues/list.html"
     model = Issue
 
-    def get_context_date(self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user=self.request.user()
+        user=self.request.user
         role=Role.objects.get(name="product owner")
         team_po=(
             CustomUser.objects
@@ -52,7 +52,7 @@ class IssueListView(LoginRequiredMixin, ListView):
 
 class IssueDetailView(LoginRequiredMixin, DetailView):
     template_name = "issues/detail.html"
-    mode = Issue
+    model = Issue
 
 class IssueCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     template_name = "issues/create.html"
@@ -82,7 +82,7 @@ class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         po_role = Role.objects.get(name="product owner")
         product_owner = (
             CustomUser.objects
-            .filter(team=po_role)
+            .filter(role=po_role)
             .filter(team=self.request.user.team)
         )
         if product_owner:
@@ -99,10 +99,10 @@ class IssueDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         po_role = Role.objects.get(name="product owner")
         product_owner = (
             CustomUser.objects
-            .filter(team=po_role)
+            .filter(role=po_role)
             .filter(team=self.request.user.team)
         )
         if product_owner:
             issue = self.get_object()
             return issue.reporter == product_owner[0]
-            return False
+        return False

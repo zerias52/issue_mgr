@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+
+{% block title %}Delete Issue{% endblock title %}
+
+{% block content %}
+<h1>Delete Post</h1>
+<p>Are you sure you want to delete this post:</p>
+<h2>{{ issue.summary }}</h2>
+<h3>Assigned To: {{ issue.assignee }}</h3>
+<small>Created By: {{ issue.reporter }}  |  Created on: {{ issue.created_on }}</small>
+<p>{{ issue.description }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="Confirm">
+</form>
+<a href="{% url "list" %}" class="btn btn-primary">Cancel</a>
+{% endblock content %}

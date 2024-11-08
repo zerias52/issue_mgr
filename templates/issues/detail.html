@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+<h1>{{ issue.summary }}</h1>
+<h3>Assigned To: {{ issue.assignee }}</h3>
+<small>Created By: {{ issue.reporter }}  |  Created on: {{ issue.created_on }}</small>
+<p>{{ issue.description }}</p>
+{% if user.is_authenticated %}
+    {% if user == issue.reporter %}
+        <a href="{% url "edit" issue.id %}" class="btn btn-success">Edit</a>
+        <a href="{% url "delete" issue.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+{% endif %}
+{% endblock content %}
