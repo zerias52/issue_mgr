@@ -40,6 +40,8 @@
                           {{ user }}
                       </a>
                       <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url "change password" %}">Change Password</a></li>
+                        <li><a class="dropdown-item" href="{% url "reset password" %}">Reset Password</a></li>
                         <li>
                             <form method="POST" action="{% url "logout" %}">
                                 {% csrf_token %}
